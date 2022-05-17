@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\StockService.DataAccess\StockService.DataAccess.csproj" />
+      <ProjectReference Include="..\StockService.Entity\StockService.Entity.csproj" />
+    </ItemGroup>
+
+</Project>
