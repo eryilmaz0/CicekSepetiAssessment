@@ -1,3 +1,8 @@
+using AuthenticationService.API;
+using AuthenticationService.API.Repository;
+using AuthenticationService.API.Resources;
+using AuthenticationService.API.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,15 +12,20 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+UserResource.InitializeUserData();
+
+builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("JwtOptions"));
+
+builder.Services.AddSingleton<IAuthenticationService, AuthenticationService.API.Services.AuthenticationService>();
+builder.Services.AddSingleton<IUserRepository, UserRepository>();
+builder.Services.AddSingleton<ITokenService, JwtTokenService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
+app.UseSwagger();
+app.UseSwaggerUI();
+    
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
