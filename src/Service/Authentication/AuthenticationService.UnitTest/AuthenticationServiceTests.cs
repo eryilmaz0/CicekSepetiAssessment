@@ -108,5 +108,45 @@ namespace AuthenticationService.UnitTest
             result.ResultMessage.Should().Be("Token Not Created.");
             result.Token.Should().BeNull();
         }
+        
+        [Test]
+        public async Task LoginAsync_WithValidCredentials_ShouldReturnLoginSucceed()
+        {
+            User user = new("Eren", "Yılmaz", "eryilmaz0@hotmail.com", "123456");
+            
+            LoginRequest loginRequest = new()
+            {
+                Email = "eryilmaz0@hotmail.com",
+                Password = "123456"
+            };
+
+            CreateTokenRequest createTokenRequest = new()
+            {
+                User = user
+            };
+
+            CreateTokenResponse createTokenResponse = new()
+            {
+                IsSuccess = true,
+                Token = Guid.NewGuid().ToString()
+            };
+            
+            
+            var mockUserRepository = new Mock<IUserRepository>();
+            var mockTokenService = new Mock<ITokenService>();
+            mockUserRepository.Setup(x => x.GetUserByEmail(It.IsAny<string>())).Returns(user);
+            mockTokenService.Setup(x => x.CreateTokenAsync(It.IsAny<CreateTokenRequest>())).ReturnsAsync(createTokenResponse);
+            API.Services.AuthenticationService authService = new  API.Services.AuthenticationService(mockTokenService.Object, mockUserRepository.Object);
+            
+            //Act
+            var result = await authService.LoginAsync(loginRequest);
+            
+            //Assert
+            mockUserRepository.Verify(x => x.GetUserByEmail("eryilmaz0@hotmail.com"), Times.Once);
+            mockTokenService.Verify(x => x.CreateTokenAsync(It.IsAny<CreateTokenRequest>()), Times.Once);
+            result.IsSuccess.Should().BeTrue();
+            result.ResultMessage.Should().Be("Login Successfull.");
+            result.Token.Should().NotBeNull();
+        }
     }
 }
