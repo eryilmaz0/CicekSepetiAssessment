@@ -1,5 +1,0 @@
-Service Ports
-
-Gateway : 5000
-Basket Service : 5010
-Stock Service : 5020
