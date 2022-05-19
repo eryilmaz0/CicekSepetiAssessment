@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using BasketService.Application.Handler;
@@ -67,7 +68,7 @@ public class AddProductToBasketHandlerTests
 
         AuthenticatedUser user = new()
         {
-            UserId = Guid.NewGuid(),
+            UserId = Guid.NewGuid().ToString(),
             Name = "Eren",
             LastName = "Yılmaz",
             Email = "eryilmaz0@hotmail.com"
@@ -110,7 +111,7 @@ public class AddProductToBasketHandlerTests
     
         AuthenticatedUser user = new()
         {
-            UserId = Guid.NewGuid(),
+            UserId = Guid.NewGuid().ToString(),
             Name = "Eren",
             LastName = "Yılmaz",
             Email = "eryilmaz0@hotmail.com"
@@ -122,7 +123,7 @@ public class AddProductToBasketHandlerTests
     
         mockAuthService.Setup(x => x.GetAuthenticatedUser()).Returns(user);
         mockStockProxy.Setup(x => x.IsStockAvailableAsync(It.IsAny<IsStockAvailableRequest>())).ReturnsAsync(true);
-        mockBasketRepository.Setup(x => x.FindAsync(It.IsAny<Func<Basket, bool>>())).ReturnsAsync(default(Basket));
+        mockBasketRepository.Setup(x => x.FindAsync(It.IsAny<Expression<Func<Basket, bool>>>())).ReturnsAsync(default(Basket));
         AddProductToBasketReuestHandler handler = new(mockBasketRepository.Object, mockAuthService.Object, mockStockProxy.Object);
         
         //Act
@@ -131,7 +132,7 @@ public class AddProductToBasketHandlerTests
         //Assert
         mockAuthService.Verify(x => x.GetAuthenticatedUser(), Times.Once);
         mockStockProxy.Verify(x => x.IsStockAvailableAsync(It.IsAny<IsStockAvailableRequest>()), Times.Once);
-        mockBasketRepository.Verify(x => x.FindAsync(It.IsAny<Func<Basket, bool>>()));
+        mockBasketRepository.Verify(x => x.FindAsync(It.IsAny<Expression<Func<Basket, bool>>>()));
         result.IsSuccess.Should().BeFalse();
         result.ResultMessage.Should().Be("Basket Not Found.");
     }
@@ -155,7 +156,7 @@ public class AddProductToBasketHandlerTests
     
         AuthenticatedUser user = new()
         {
-            UserId = Guid.NewGuid(),
+            UserId = Guid.NewGuid().ToString(),
             Name = "Eren",
             LastName = "Yılmaz",
             Email = "eryilmaz0@hotmail.com"
@@ -163,12 +164,12 @@ public class AddProductToBasketHandlerTests
 
         Basket basket = new()
         {
-            UserId = Guid.NewGuid(),
+            UserEmail = "eryilmaz0@hotmail.com",
             BasketItems = new()
             {
                 new()
                 {
-                    Id = Guid.NewGuid(),
+                    Id = Guid.NewGuid().ToString(),
                     ProductId = 1,
                     ProductName = "Product 1",
                     ProductImage = "Product1.jpg",
@@ -187,7 +188,7 @@ public class AddProductToBasketHandlerTests
     
         mockAuthService.Setup(x => x.GetAuthenticatedUser()).Returns(user);
         mockStockProxy.Setup(x => x.IsStockAvailableAsync(It.IsAny<IsStockAvailableRequest>())).ReturnsAsync(true);
-        mockBasketRepository.Setup(x => x.FindAsync(It.IsAny<Func<Basket, bool>>())).ReturnsAsync(basket);
+        mockBasketRepository.Setup(x => x.FindAsync(It.IsAny<Expression<Func<Basket, bool>>>())).ReturnsAsync(basket);
         mockBasketRepository.Setup(x => x.UpdateBasketAsync(It.IsAny<Basket>())).ReturnsAsync(false);
         AddProductToBasketReuestHandler handler = new(mockBasketRepository.Object, mockAuthService.Object, mockStockProxy.Object);
         
@@ -197,7 +198,7 @@ public class AddProductToBasketHandlerTests
         //Assert
         mockAuthService.Verify(x => x.GetAuthenticatedUser(), Times.Once);
         mockStockProxy.Verify(x => x.IsStockAvailableAsync(It.IsAny<IsStockAvailableRequest>()), Times.Once);
-        mockBasketRepository.Verify(x => x.FindAsync(It.IsAny<Func<Basket, bool>>()));
+        mockBasketRepository.Verify(x => x.FindAsync(It.IsAny<Expression<Func<Basket, bool>>>()));
         mockBasketRepository.Verify(x => x.UpdateBasketAsync(It.IsAny<Basket>()), Times.Once);
         result.IsSuccess.Should().BeFalse();
         result.ResultMessage.Should().Be("Basket Not Updated.");
@@ -222,7 +223,7 @@ public class AddProductToBasketHandlerTests
     
         AuthenticatedUser user = new()
         {
-            UserId = Guid.NewGuid(),
+            UserId = Guid.NewGuid().ToString(),
             Name = "Eren",
             LastName = "Yılmaz",
             Email = "eryilmaz0@hotmail.com"
@@ -230,12 +231,12 @@ public class AddProductToBasketHandlerTests
 
         Basket basket = new()
         {
-            UserId = Guid.NewGuid(),
+            UserEmail = "eryilmaz0@hotmail.com",
             BasketItems = new()
             {
                 new()
                 {
-                    Id = Guid.NewGuid(),
+                    Id = Guid.NewGuid().ToString(),
                     ProductId = 1,
                     ProductName = "Product 1",
                     ProductImage = "Product1.jpg",
@@ -254,7 +255,7 @@ public class AddProductToBasketHandlerTests
     
         mockAuthService.Setup(x => x.GetAuthenticatedUser()).Returns(user);
         mockStockProxy.Setup(x => x.IsStockAvailableAsync(It.IsAny<IsStockAvailableRequest>())).ReturnsAsync(true);
-        mockBasketRepository.Setup(x => x.FindAsync(It.IsAny<Func<Basket, bool>>())).ReturnsAsync(basket);
+        mockBasketRepository.Setup(x => x.FindAsync(It.IsAny<Expression<Func<Basket, bool>>>())).ReturnsAsync(basket);
         mockBasketRepository.Setup(x => x.UpdateBasketAsync(It.IsAny<Basket>())).ReturnsAsync(true);
         AddProductToBasketReuestHandler handler = new(mockBasketRepository.Object, mockAuthService.Object, mockStockProxy.Object);
         
@@ -264,7 +265,7 @@ public class AddProductToBasketHandlerTests
         //Assert
         mockAuthService.Verify(x => x.GetAuthenticatedUser(), Times.Once);
         mockStockProxy.Verify(x => x.IsStockAvailableAsync(It.IsAny<IsStockAvailableRequest>()), Times.Once);
-        mockBasketRepository.Verify(x => x.FindAsync(It.IsAny<Func<Basket, bool>>()));
+        mockBasketRepository.Verify(x => x.FindAsync(It.IsAny<Expression<Func<Basket, bool>>>()));
         mockBasketRepository.Verify(x => x.UpdateBasketAsync(It.IsAny<Basket>()), Times.Once);
         result.IsSuccess.Should().BeTrue();
         result.ResultMessage.Should().Be("Product Added To Basket.");
@@ -295,7 +296,7 @@ public class AddProductToBasketHandlerTests
     
         AuthenticatedUser user = new()
         {
-            UserId = Guid.NewGuid(),
+            UserId = Guid.NewGuid().ToString(),
             Name = "Eren",
             LastName = "Yılmaz",
             Email = "eryilmaz0@hotmail.com"
@@ -303,12 +304,12 @@ public class AddProductToBasketHandlerTests
 
         Basket basket = new()
         {
-            UserId = Guid.NewGuid(),
+            UserEmail = "eryilmaz0@hotmail.com",
             BasketItems = new()
             {
                 new()
                 {
-                    Id = Guid.NewGuid(),
+                    Id = Guid.NewGuid().ToString(),
                     ProductId = 1,
                     ProductName = "Product 1",
                     ProductImage = "Product1.jpg",
@@ -327,7 +328,7 @@ public class AddProductToBasketHandlerTests
     
         mockAuthService.Setup(x => x.GetAuthenticatedUser()).Returns(user);
         mockStockProxy.Setup(x => x.IsStockAvailableAsync(It.IsAny<IsStockAvailableRequest>())).ReturnsAsync(true);
-        mockBasketRepository.Setup(x => x.FindAsync(It.IsAny<Func<Basket, bool>>())).ReturnsAsync(basket);
+        mockBasketRepository.Setup(x => x.FindAsync(It.IsAny<Expression<Func<Basket, bool>>>())).ReturnsAsync(basket);
         mockBasketRepository.Setup(x => x.UpdateBasketAsync(It.IsAny<Basket>())).ReturnsAsync(true);
         AddProductToBasketReuestHandler handler = new(mockBasketRepository.Object, mockAuthService.Object, mockStockProxy.Object);
         
@@ -337,7 +338,7 @@ public class AddProductToBasketHandlerTests
         //Assert
         mockAuthService.Verify(x => x.GetAuthenticatedUser(), Times.Once);
         mockStockProxy.Verify(x => x.IsStockAvailableAsync(It.IsAny<IsStockAvailableRequest>()), Times.Once);
-        mockBasketRepository.Verify(x => x.FindAsync(It.IsAny<Func<Basket, bool>>()));
+        mockBasketRepository.Verify(x => x.FindAsync(It.IsAny<Expression<Func<Basket, bool>>>()));
         mockBasketRepository.Verify(x => x.UpdateBasketAsync(It.IsAny<Basket>()), Times.Once);
         result.IsSuccess.Should().BeTrue();
         result.ResultMessage.Should().Be("Product Added To Basket.");

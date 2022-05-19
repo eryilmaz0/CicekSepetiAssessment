@@ -26,7 +26,7 @@ public class AuthService : IAuthService
 
         return new()
         {
-            UserId = new Guid(userId),
+            UserId = userId,
             Name = name,
             LastName = lastName,
             Email = email

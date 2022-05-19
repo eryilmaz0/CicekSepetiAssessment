@@ -49,10 +49,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SecurityKey))
     };
 });
-
 #endregion
-
-
 
 var app = builder.Build();
 

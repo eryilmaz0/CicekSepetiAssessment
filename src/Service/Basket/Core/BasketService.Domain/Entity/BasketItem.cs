@@ -2,7 +2,7 @@
 
 namespace BasketService.Domain.Entity;
 
-public class BasketItem : Entity<Guid>
+public class BasketItem : Entity<string>
 {
     public int ProductId { get; set; }
     public string ProductName { get; set; }

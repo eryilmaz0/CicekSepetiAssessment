@@ -4,6 +4,7 @@ using BasketService.Application.Repository;
 using BasketService.Application.Service;
 using BasketService.Domain.Entity;
 using MediatR;
+using MongoDB.Bson;
 
 namespace BasketService.Application.Handler;
 
@@ -28,7 +29,7 @@ public class AddProductToBasketReuestHandler : IRequestHandler<AddProductToBaske
         if (!await IsStockAvailable(request.Product.ProductId, request.Quantity))
             return new() { IsSuccess = false, ResultMessage = "Stock Is Not Available for This Product." };
 
-        var basket = await GetBasketForAuthenticatedUser(authenticatedUser.UserId);
+        var basket = await GetBasketForAuthenticatedUser(authenticatedUser.Email);
 
         if (basket is null)
         {
@@ -70,9 +71,9 @@ public class AddProductToBasketReuestHandler : IRequestHandler<AddProductToBaske
         return await _stockProxy.IsStockAvailableAsync(requestModel);
     }
 
-    private async Task<Basket> GetBasketForAuthenticatedUser(Guid userId)
+    private async Task<Basket> GetBasketForAuthenticatedUser(string userEmail)
     {
-        return await _basketRepository.FindAsync(basket => basket.Id.Equals(userId));
+        return await _basketRepository.FindAsync(basket => basket.UserEmail.Equals(userEmail));
     }
 
     
@@ -86,6 +87,7 @@ public class AddProductToBasketReuestHandler : IRequestHandler<AddProductToBaske
         {
             BasketItem newBasketItem = new()
             {
+                Id = ObjectId.GenerateNewId().ToString(),
                 ProductId = product.ProductId,
                 ProductName = product.ProductName,
                 ProductImage = product.ProductImage,

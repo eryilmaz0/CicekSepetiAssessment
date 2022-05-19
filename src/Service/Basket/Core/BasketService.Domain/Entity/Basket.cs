@@ -1,10 +1,10 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace BasketService.Domain.Entity;
 
-public class Basket : Entity<Guid>
+public class Basket : Entity<string>
 {
-    [BsonId]
-    public Guid UserId { get; set; }
+    public string UserEmail { get; set; }
     public List<BasketItem> BasketItems { get; set; }
 }

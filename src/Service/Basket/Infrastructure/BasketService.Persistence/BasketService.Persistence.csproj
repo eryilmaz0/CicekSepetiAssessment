@@ -10,4 +10,14 @@
       <ProjectReference Include="..\..\Core\BasketService.Application\BasketService.Application.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="MongoDB.Driver" Version="2.15.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="Microsoft.Extensions.Options">
+        <HintPath>..\..\..\..\..\..\..\..\..\..\..\Program Files\dotnet\shared\Microsoft.AspNetCore.App\6.0.3\Microsoft.Extensions.Options.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
 </Project>
