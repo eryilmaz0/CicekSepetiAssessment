@@ -45,7 +45,7 @@ public class JwtTokenService : ITokenService
             new(ClaimTypes.NameIdentifier, user.Id.ToString()),
             new(ClaimTypes.Name, user.Name),
             new(ClaimTypes.Surname, user.LastName),
-            new(JwtRegisteredClaimNames.Email, user.Email)
+            new(ClaimTypes.Email, user.Email)
         };
     }
 }
