@@ -5,10 +5,10 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["src/Gateway/CicekSepetiAssessment.Gateway/CicekSepetiAssessment.Gateway.csproj", "CicekSepetiAssessment.Gateway/"]
+COPY ["src/Gateway/CicekSepetiAssessment.Gateway/CicekSepetiAssessment.Gateway.csproj", "src/Gateway/CicekSepetiAssessment.Gateway/"] 
 RUN dotnet restore "src/Gateway/CicekSepetiAssessment.Gateway/CicekSepetiAssessment.Gateway.csproj"
 COPY . .
-WORKDIR "/src/CicekSepetiAssessment.Gateway"
+WORKDIR "/src/src/Gateway/CicekSepetiAssessment.Gateway/"
 RUN dotnet build "CicekSepetiAssessment.Gateway.csproj" -c Release -o /app/build
 
 FROM build AS publish

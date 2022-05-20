@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  gateway:
+    image: gateway:1.0
+    build: 
+      context: .
+      dockerfile: src/Gateway/CicekSepetiAssessment.Gateway/Dockerfile
+
+
+  auth_service:
+    image: auth_service:1.0
+    build:
+      context: .
+      dockerfile: src/Service/Authentication/AuthenticationService.API/Dockerfile
+
+
+  stock_service:
+    image: stock_service:1.0
+    build: 
+      context: .
+      dockerfile: src/Service/Stock/StockService.API/Dockerfile
+
+
+  basket_service:
+    image: basket_service:1.0
+    build:
+      context: .
+      dockerfile: src/Service/Basket/BasketService.API/Dockerfile
