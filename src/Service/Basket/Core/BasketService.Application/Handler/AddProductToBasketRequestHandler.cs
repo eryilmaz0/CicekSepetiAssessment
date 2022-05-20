@@ -8,13 +8,13 @@ using MongoDB.Bson;
 
 namespace BasketService.Application.Handler;
 
-public class AddProductToBasketReuestHandler : IRequestHandler<AddProductToBasketRequest, AddProductToBasketResponse>
+public class AddProductToBasketRequestHandler : IRequestHandler<AddProductToBasketRequest, AddProductToBasketResponse>
 {
     private readonly IBasketRepository _basketRepository;
     private readonly IAuthService _authService;
     private readonly IStockProxy _stockProxy;
 
-    public AddProductToBasketReuestHandler(IBasketRepository basketRepository,IAuthService authService, IStockProxy stockProxy)
+    public AddProductToBasketRequestHandler(IBasketRepository basketRepository,IAuthService authService, IStockProxy stockProxy)
     {
         _basketRepository = basketRepository;
         _authService = authService;

@@ -1,6 +1,6 @@
 Service Ports
 
-Gateway : 5000
-Authentication Service : 5010
+Gateway : 7000
+Authentication Service : 5000
+Stock Service : 5010
 Basket Service : 5020
-Stock Service : 5030

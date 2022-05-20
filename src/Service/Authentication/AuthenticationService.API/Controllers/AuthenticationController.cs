@@ -7,7 +7,7 @@ namespace AuthenticationService.API.Controllers;
 
 [ApiController]
 [Route("api/[Controller]/[Action]")]
-public class AuthenticationsController
+public class AuthenticationsController : ControllerBase
 {
     private readonly IAuthenticationService _authenticationService;
 
@@ -21,5 +21,12 @@ public class AuthenticationsController
     {
         var result = await _authenticationService.LoginAsync(request);
         return new(result);
+    }
+
+
+    [HttpGet]
+    public IActionResult HealthCheck()
+    {
+        return Ok("Auth Service Health Check Success.");
     }
 }

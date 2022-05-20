@@ -8,6 +8,6 @@ public static class ServiceRegistrator
 {
     public static void RegisterInfrastructureServices(this IServiceCollection serviceCollection)
     {
-       
+        serviceCollection.AddSingleton<IStockProxy, StockProxy>();
     }
 }

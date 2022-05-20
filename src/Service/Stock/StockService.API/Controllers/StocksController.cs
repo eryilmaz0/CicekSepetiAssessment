@@ -8,7 +8,7 @@ namespace StockService.API.Controllers;
 
 [ApiController]
 [Route("api/[Controller]/[Action]")]
-public class StocksController : Controller
+public class StocksController : ControllerBase
 {
     private readonly IStockService _stockService;
 
@@ -23,5 +23,12 @@ public class StocksController : Controller
     {
         var result = await _stockService.CheckStockAvailability(request);
         return new(result);
+    }
+
+
+    [HttpGet]
+    public IActionResult HealthCheck()
+    {
+        return Ok("Stock Service Health Check Success.");
     }
 }

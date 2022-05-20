@@ -12,10 +12,10 @@ public static class ServiceRegistrator
 {
     public static void RegisterApplicationServices(this IServiceCollection serviceCollection)
     {
-        serviceCollection.AddMediatR(typeof(AddProductToBasketReuestHandler));
+        serviceCollection.AddMediatR(typeof(AddProductToBasketRequestHandler));
         serviceCollection.AddSingleton<IAuthService, AuthService>();
         serviceCollection.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-        serviceCollection.AddSingleton<IStockProxy, MockServiceProxy>();
+        //serviceCollection.AddSingleton<IStockProxy, MockServiceProxy>();
         serviceCollection.AddSingleton<DataInitializer>();
     }
 }

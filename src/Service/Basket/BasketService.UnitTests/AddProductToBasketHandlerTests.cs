@@ -38,7 +38,7 @@ public class AddProductToBasketHandlerTests
         var mockStockProxy = new Mock<IStockProxy>();
 
         mockAuthService.Setup(x => x.GetAuthenticatedUser()).Returns(default(AuthenticatedUser));
-        AddProductToBasketReuestHandler handler = new(mockBasketRepository.Object, mockAuthService.Object, mockStockProxy.Object);
+        AddProductToBasketRequestHandler handler = new(mockBasketRepository.Object, mockAuthService.Object, mockStockProxy.Object);
         
         //Act
         var result = await handler.Handle(request, new CancellationToken());
@@ -80,7 +80,7 @@ public class AddProductToBasketHandlerTests
 
         mockAuthService.Setup(x => x.GetAuthenticatedUser()).Returns(user);
         mockStockProxy.Setup(x => x.IsStockAvailableAsync(It.IsAny<IsStockAvailableRequest>())).ReturnsAsync(false);
-        AddProductToBasketReuestHandler handler = new(mockBasketRepository.Object, mockAuthService.Object, mockStockProxy.Object);
+        AddProductToBasketRequestHandler handler = new(mockBasketRepository.Object, mockAuthService.Object, mockStockProxy.Object);
         
         //Act
         var result = await handler.Handle(request, new CancellationToken());
@@ -124,7 +124,7 @@ public class AddProductToBasketHandlerTests
         mockAuthService.Setup(x => x.GetAuthenticatedUser()).Returns(user);
         mockStockProxy.Setup(x => x.IsStockAvailableAsync(It.IsAny<IsStockAvailableRequest>())).ReturnsAsync(true);
         mockBasketRepository.Setup(x => x.FindAsync(It.IsAny<Expression<Func<Basket, bool>>>())).ReturnsAsync(default(Basket));
-        AddProductToBasketReuestHandler handler = new(mockBasketRepository.Object, mockAuthService.Object, mockStockProxy.Object);
+        AddProductToBasketRequestHandler handler = new(mockBasketRepository.Object, mockAuthService.Object, mockStockProxy.Object);
         
         //Act
         var result = await handler.Handle(request, new CancellationToken());
@@ -190,7 +190,7 @@ public class AddProductToBasketHandlerTests
         mockStockProxy.Setup(x => x.IsStockAvailableAsync(It.IsAny<IsStockAvailableRequest>())).ReturnsAsync(true);
         mockBasketRepository.Setup(x => x.FindAsync(It.IsAny<Expression<Func<Basket, bool>>>())).ReturnsAsync(basket);
         mockBasketRepository.Setup(x => x.UpdateBasketAsync(It.IsAny<Basket>())).ReturnsAsync(false);
-        AddProductToBasketReuestHandler handler = new(mockBasketRepository.Object, mockAuthService.Object, mockStockProxy.Object);
+        AddProductToBasketRequestHandler handler = new(mockBasketRepository.Object, mockAuthService.Object, mockStockProxy.Object);
         
         //Act
         var result = await handler.Handle(request, new CancellationToken());
@@ -257,7 +257,7 @@ public class AddProductToBasketHandlerTests
         mockStockProxy.Setup(x => x.IsStockAvailableAsync(It.IsAny<IsStockAvailableRequest>())).ReturnsAsync(true);
         mockBasketRepository.Setup(x => x.FindAsync(It.IsAny<Expression<Func<Basket, bool>>>())).ReturnsAsync(basket);
         mockBasketRepository.Setup(x => x.UpdateBasketAsync(It.IsAny<Basket>())).ReturnsAsync(true);
-        AddProductToBasketReuestHandler handler = new(mockBasketRepository.Object, mockAuthService.Object, mockStockProxy.Object);
+        AddProductToBasketRequestHandler handler = new(mockBasketRepository.Object, mockAuthService.Object, mockStockProxy.Object);
         
         //Act
         var result = await handler.Handle(request, new CancellationToken());
@@ -330,7 +330,7 @@ public class AddProductToBasketHandlerTests
         mockStockProxy.Setup(x => x.IsStockAvailableAsync(It.IsAny<IsStockAvailableRequest>())).ReturnsAsync(true);
         mockBasketRepository.Setup(x => x.FindAsync(It.IsAny<Expression<Func<Basket, bool>>>())).ReturnsAsync(basket);
         mockBasketRepository.Setup(x => x.UpdateBasketAsync(It.IsAny<Basket>())).ReturnsAsync(true);
-        AddProductToBasketReuestHandler handler = new(mockBasketRepository.Object, mockAuthService.Object, mockStockProxy.Object);
+        AddProductToBasketRequestHandler handler = new(mockBasketRepository.Object, mockAuthService.Object, mockStockProxy.Object);
         
         //Act
         var result = await handler.Handle(request, new CancellationToken());

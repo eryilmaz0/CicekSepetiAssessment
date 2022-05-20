@@ -26,7 +26,7 @@ public class StockProxy : IStockProxy
         httpClient.DefaultRequestHeaders.Add("Authorization", currentToken);
 
         var requestModel = new CheckStockAvailabilityRequestModel() { ProductId = request.ProductId, Quantity = request.Quantity };
-        var result = await httpClient.PostAsJsonAsync<CheckStockAvailabilityRequestModel>(string.Empty, requestModel);
+        var result = await httpClient.PostAsJsonAsync<CheckStockAvailabilityRequestModel>("Stocks/CheckStockAvailability", requestModel);
 
         if (result is null || !result.IsSuccessStatusCode)
             return false;

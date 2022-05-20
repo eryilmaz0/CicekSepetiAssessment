@@ -2,6 +2,7 @@ using System.Text;
 using BasketService.Application;
 using BasketService.Application.Configuration;
 using BasketService.Application.Helper;
+using BasketService.Infrastructure;
 using BasketService.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -19,6 +20,7 @@ builder.Services.Configure<MongoConfig>(builder.Configuration.GetSection("MongoC
 
 builder.Services.RegisterApplicationServices();
 builder.Services.RegisterPersistenceServices();
+builder.Services.RegisterInfrastructureServices();
 
 #region Authentication
 AuthTokenOptions jwtOptions = builder.Configuration.GetSection("AuthTokenOptions").Get<AuthTokenOptions>();

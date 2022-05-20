@@ -1,0 +1,54 @@
+﻿{
+    "Routes": [
+        {
+            
+            "DownstreamPathTemplate": "/{everything}",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5000
+                }
+            ],
+
+
+            "UpstreamPathTemplate": "/Services/Auth/{everything}",
+            "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+            "UpstreamScheme": "https"
+        },
+
+        {
+
+            "DownstreamPathTemplate": "/{everything}",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5010
+                }
+            ],
+
+
+            "UpstreamPathTemplate": "/Services/Stock/{everything}",
+            "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+            "UpstreamScheme": "https"
+        },
+
+        {
+
+            "DownstreamPathTemplate": "/{everything}",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5020
+                }
+            ],
+
+
+            "UpstreamPathTemplate": "/Services/Basket/{everything}",
+            "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+            "UpstreamScheme": "https"
+        }
+    ]
+}

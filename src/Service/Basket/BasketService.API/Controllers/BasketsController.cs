@@ -8,7 +8,7 @@ namespace BasketService.API.Controllers;
 
 [ApiController]
 [Route("api/[Controller]/[Action]")]
-public class BasketsController : Controller
+public class BasketsController : ControllerBase
 {
    private readonly IMediator _mediator;
 
@@ -26,11 +26,18 @@ public class BasketsController : Controller
    }
 
 
-    [HttpPost]
+    [HttpGet]
     [Authorize]
     public async Task<ApiResponse<GetBasketResponse>> GetBasket([FromQuery]GetBasketRequest request)
     {
         var result = await this._mediator.Send(request);
         return new(result);
+    }
+
+
+    [HttpGet]
+    public IActionResult HealthCheck()
+    {
+        return Ok("Basket Service Health Check Success.");
     }
 }
