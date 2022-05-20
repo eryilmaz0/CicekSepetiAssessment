@@ -38,6 +38,16 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 });
 #endregion
 
+#region HttpClient
+
+builder.Services.AddHttpClient("StockService", client =>
+{
+    client.BaseAddress = new Uri(builder.Configuration.GetSection("StockServiceUrl").Value);
+    client.DefaultRequestHeaders.Add("Accept", "application/json");
+    client.DefaultRequestHeaders.Add("Resource", "BasketService");
+});
+#endregion
+
 var app = builder.Build();
 
 var dataInitializer = app.Services.GetRequiredService<DataInitializer>();

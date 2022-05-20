@@ -5,4 +5,5 @@ namespace BasketService.Application.Service;
 public interface IAuthService
 {
     public AuthenticatedUser GetAuthenticatedUser();
+    public string GetCurrentToken();
 }

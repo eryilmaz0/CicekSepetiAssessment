@@ -26,7 +26,7 @@ public class DataInitializer
         {
             if (await _basketRepository.FindAsync(x => x.UserEmail.Equals(basket.UserEmail)) == null)
             {
-                await _basketRepository.AddBasket(basket);
+                await _basketRepository.AddBasketAsync(basket);
             }
         });
     }

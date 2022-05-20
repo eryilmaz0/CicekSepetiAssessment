@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using Microsoft.Extensions.Options;
+
 using StackExchange.Redis;
 using StockService.Entity.Entity;
 using StockService.Entity.Options;

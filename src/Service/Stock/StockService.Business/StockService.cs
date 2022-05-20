@@ -17,13 +17,13 @@ public class StockService : IStockService
         var stock = await _stockRepository.GetStockByProductIdAsync(request.ProductId);
 
         if (stock is null)
-            return new() { IsSuccess = false, ResultMessage = "Stock Not Found." };
+            return new() { IsAvailable = false, ResultMessage = "Stock Not Found." };
 
         if (!(stock.AvailableStocks >= request.Quantity))
         {
-            return new() { IsSuccess = false, ResultMessage = "Stock Not Available." };
+            return new() { IsAvailable = false, ResultMessage = "Stock Not Available." };
         }
 
-        return new() { IsSuccess = true, ResultMessage = "Stock is Available." };
+        return new() { IsAvailable = true, ResultMessage = "Stock is Available." };
     }
 }

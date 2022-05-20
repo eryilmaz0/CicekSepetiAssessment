@@ -29,7 +29,7 @@ public class StockServiceTests
         
         //Assert
         mockStockRepository.Verify(x => x.GetStockByProductIdAsync(It.IsAny<int>()),Times.Once);
-        result.IsSuccess.Should().BeFalse();
+        result.IsAvailable.Should().BeFalse();
         result.ResultMessage.Should().Be("Stock Not Found.");
     }
     
@@ -59,7 +59,7 @@ public class StockServiceTests
         
         //Assert
         mockStockRepository.Verify(x => x.GetStockByProductIdAsync(request.ProductId),Times.Once);
-        result.IsSuccess.Should().BeFalse();
+        result.IsAvailable.Should().BeFalse();
         result.ResultMessage.Should().Be("Stock Not Available.");
     }
     
@@ -89,7 +89,7 @@ public class StockServiceTests
         
         //Assert
         mockStockRepository.Verify(x => x.GetStockByProductIdAsync(request.ProductId),Times.Once);
-        result.IsSuccess.Should().BeTrue();
+        result.IsAvailable.Should().BeTrue();
         result.ResultMessage.Should().Be("Stock is Available.");
     }
 }

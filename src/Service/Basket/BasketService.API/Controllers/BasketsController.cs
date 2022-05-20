@@ -1,5 +1,5 @@
-﻿using BasketService.API.ApiResponse;
-using BasketService.Application.Model;
+﻿using BasketService.Application.Model;
+using BasketService.Infrastructure.ApiResponse;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -24,4 +24,13 @@ public class BasketsController : Controller
       var result = await this._mediator.Send(request);
       return new(result);
    }
+
+
+    [HttpPost]
+    [Authorize]
+    public async Task<ApiResponse<GetBasketResponse>> GetBasket([FromQuery]GetBasketRequest request)
+    {
+        var result = await this._mediator.Send(request);
+        return new(result);
+    }
 }

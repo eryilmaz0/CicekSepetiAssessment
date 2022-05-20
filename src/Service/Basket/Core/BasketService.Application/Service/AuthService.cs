@@ -21,7 +21,7 @@ public class AuthService : IAuthService
         var lastName = this._contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Surname)?.Value;
         var email = this._contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
         
-        if (!this.IsUserUserCredentialsValid(userId, name, lastName, email))
+        if (!this.IsUserCredentialsValid(userId, name, lastName, email))
             return default(AuthenticatedUser);
 
         return new()
@@ -34,7 +34,14 @@ public class AuthService : IAuthService
     }
 
 
-    private bool IsUserUserCredentialsValid(string userId, string name, string lastName, string email)
+    public string GetCurrentToken()
+    {
+        string authtoken = this._contextAccessor.HttpContext.Request.Headers["Authorization"];
+        return authtoken;
+    }
+
+
+    private bool IsUserCredentialsValid(string userId, string name, string lastName, string email)
     {
         if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(name) || string.IsNullOrEmpty(lastName) || string.IsNullOrEmpty(email))
             return false;

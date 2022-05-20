@@ -2,6 +2,6 @@
 
 public class CheckStockAvailabilityResponse
 {
-    public bool IsSuccess { get; set; }
+    public bool IsAvailable { get; set; }
     public string ResultMessage { get; set; }
 }
