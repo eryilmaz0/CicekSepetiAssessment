@@ -1,6 +1,66 @@
 version: '3.8'
 
 services:
+  gateway:
+    image: gateway:1.0
+    container_name: gateway
+    ports:
+      - 7010:7010
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:7010
+
+
   auth_service:
     image: auth_service:1.0
-    containername: 
+    container_name: auth_service
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:5000
+    ports:
+      - 5000:5000
+  
+
+  stock_service:
+    image: stock_service:1.0
+    container_name: stock_service
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:5010
+    ports:
+      - 5010:5010
+    depends_on:
+      - redis
+      - auth_service
+
+
+  basket_service:
+    image: basket_service:1.0
+    container_name: basket_service
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:5020
+    ports:
+      - 5020:5020
+    depends_on:
+      - mongo
+      - stock_service
+
+
+  redis:
+    image: redis:latest
+    container_name: Stock_Redis
+    ports:
+      - 7000:6379
+    command: >
+      --requirepass 123456
+
+
+  mongo:
+    image: mongo:latest
+    container_name: Basket_Mongo
+    ports:
+      - 7001:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=prodadmin
+      - MONGO_INITDB_ROOT_PASSWORD=admin 
